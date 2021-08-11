@@ -40,12 +40,11 @@ jobs:
           echo test, and deploy your project.
     
       - name: Install Boost and Win_Flex_Bison1
-        run:  mkdir D:\a\cpp ;           
+        run:  mkdir D:\a\cpp ; `
+          [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ;
 
       - name: Install Boost and Win_Flex_Bison2
         run:  Invoke-WebRequest https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip -OutFile D:\a\cpp\win_flex_bison.zip ;          
-      - name: Install Boost and Win_Flex_Bison3
-        run:  [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ;
           
       - name: Install Boost and Win_Flex_Bison4
         run:  Invoke-WebRequest https://boostorg.jfrog.io/artifactory/main/release/1.72.0/source/boost_1_72_0.zip -OutFile D:\a\cpp\boost_1_72_0.zip ; 
