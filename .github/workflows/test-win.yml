@@ -41,24 +41,25 @@ jobs:
     
       - name: Install Boost and Win_Flex_Bison1
         run:  mkdir D:\a\cpp ; `
-          [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ;
+          [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ;        
 
       - name: Install Boost and Win_Flex_Bison2
         run:  Invoke-WebRequest https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip -OutFile D:\a\cpp\win_flex_bison.zip ;          
           
       - name: Install Boost and Win_Flex_Bison4
         run:  Invoke-WebRequest https://boostorg.jfrog.io/artifactory/main/release/1.72.0/source/boost_1_72_0.zip -OutFile D:\a\cpp\boost_1_72_0.zip ; 
-          
+
       - name: Install Boost and Win_Flex_Bison5
-        run:  Expand-Archive D:\a\cpp\boost_1_72_0.zip -DestinationPath D:\a\cpp ; 
+        shell: bash
+        run: cd /d/a/cpp && unzip boost_1_72_0.zip && echo 'export PATH=/d/a/cpp:$PATH' >> ~/.bash_profile && source ~/.bash_profile
           
       - name: Install Boost and Win_Flex_Bison6
         run:  cd D:\a\cpp\boost_1_72_0 ; 
           
-      - name: Install Boost and Win_Flex_Bison7
+      - name: Install Boost and Win_Flex_Bison3
         run:  .\bootstrap.bat ; 
           
-      - name: Install Boost and Win_Flex_Bison8
+      - name: Install Boost and Win_Flex_Bison3
         run:  .\b2.exe 
 
       - name: Install OpenSSL
@@ -66,3 +67,5 @@ jobs:
       - name: Add Flex and Bison Path and OpenSSL
         shell: bash
         run: cd /d/a/cpp && unzip win_flex_bison.zip && mv win_flex.exe flex.exe && mv win_bison.exe bison.exe  && echo 'export PATH=/d/a/cpp:$PATH' >> ~/.bash_profile && source ~/.bash_profile
+      - name: echo bison
+        run:  bison --version
