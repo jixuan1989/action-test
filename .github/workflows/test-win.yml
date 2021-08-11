@@ -39,22 +39,17 @@ jobs:
           echo Add other actions to build,
           echo test, and deploy your project.
     
-      - name: Install Boost and Win_Flex_Bison1
-        run:  mkdir D:\a\cpp ; `
-          [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ;        
-
-      - name: Install Boost and Win_Flex_Bison2
-        run:  Invoke-WebRequest https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip -OutFile D:\a\cpp\win_flex_bison.zip ;          
-      
-      - name: Install Boost and Win_Flex_Bison3
+      - name: Install Win_Flex_Bison
+        run: mkdir D:\a\cpp ; `
+          Invoke-WebRequest https://github.com/lexxmark/winflexbison/releases/download/v2.5.24/win_flex_bison-2.5.24.zip -OutFile D:\a\cpp\win_flex_bison.zip ; `
+          [Environment]::SetEnvironmentVariable("Path", $env:Path + ";D:\a\cpp", "User") ; `
+      - name: Download Boost
         run: choco install boost-msvc-14.2
+      - name: Install Boost
+        run: cd C:\local\boost_1_74_0 ; `
+          .\bootstrap.bat ; `
+          .\b2.exe
 
-      - name: Install OpenSSL
-        run:  choco install openssl
-      
-      - name: Add Flex and Bison Path and OpenSSL
+      - name: Show result
         shell: bash
-        run: cd /d/a/cpp && unzip win_flex_bison.zip && mv win_flex.exe flex.exe && mv win_bison.exe bison.exe  && echo 'export PATH=/d/a/cpp:$PATH' >> ~/.bash_profile && source ~/.bash_profile
-      
-      - name: echo bison
-        run:  bison --version
+        run: ls /c/local/boost_1_74_0    
