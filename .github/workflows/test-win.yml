@@ -51,7 +51,7 @@ jobs:
 
       - name: Install Boost and Win_Flex_Bison5
         shell: bash
-        run: cd /d/a/cpp && unzip boost_1_72_0.zip && echo 'export PATH=/d/a/cpp:$PATH' >> ~/.bash_profile && source ~/.bash_profile
+        run: cd /d/a/cpp && ls ./ && unzip boost_1_72_0.zip && echo 'export PATH=/d/a/cpp:$PATH' >> ~/.bash_profile && source ~/.bash_profile
           
       - name: Install Boost and Win_Flex_Bison6
         run:  cd D:\a\cpp\boost_1_72_0 ; 
